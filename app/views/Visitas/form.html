@@ -1,0 +1,34 @@
+#{extends 'main.html' /}
+#{set title:'Form' /}
+
+#{if p}
+	#{set title:'Edição de Pessoa!!!' /}
+#{/if}
+#{else}
+	#{set title:'Cadastro de Pessoa!!!' /}
+#{/else}
+
+<p>Preencha os dados das visitas</p>
+
+<form action="/Visitas/Salvar">
+
+<input type="hidden" name="v.id" value="${v?.id}"> 
+
+	Nome:<input type="text" name="v.nome" value="${v?.nome}"> 
+	<br/>
+	Email:<input type="text" name="v.email" value="${v?.email}"> 
+	<br/>
+	Senha:<input type="password" name="v.senha" > 
+	<br/>
+	Data:<input type="date" name="v.data" value="${v?.data}"> 
+	<br/>
+	Hora:<input type="time" name="v.hora" value="${v?.hora}">
+	 <br/>
+	
+<button>Enviar</button>
+
+</form>
+<a href="@{Visitas.listar}">Voltar para listagem</a>
+
+
+

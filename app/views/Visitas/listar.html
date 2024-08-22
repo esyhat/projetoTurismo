@@ -1,0 +1,52 @@
+#{extends 'main.html' /}
+#{set title:'Listar' /}
+
+<form action="@{Visitas.listar}">
+	<div class="row">
+		<div class="col-6">
+			<input type="text" class="form-control" name="termo" value="${termo}" />
+		</div>
+		<div class="col-6">
+			<input type="submit" class="btn btn-primary" value="Pesquisar" />
+		</div>
+	</div>
+</form>
+
+<p>Visitas cadastradas</p>
+
+
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Nome</th>
+			<th>Email</th>
+			<th>senha</th>
+			<th>data</th>
+			<th>hora</th>
+		</tr>
+	</thead>
+		#{list items:visitas, as:'v'}
+			<tr>
+				<td>${v.nome}</td>
+				<td>${v.email}</td>
+				<td>${v.senha}</td>
+				<td>${v.data}</td>
+				<td>${v.hora}</td>
+	
+				<td>
+					<a href="@{Visitas.editar(v.id)}">Editar</a> | 
+				</td>
+			</tr>
+		#{/list}
+	<tbody>
+	
+	</tbody>
+</table>
+
+
+
+<a href="@{Visitas.form}">Nova Pessoa</a>
+
+
+
+
