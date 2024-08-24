@@ -18,6 +18,7 @@ public class Visitas extends Controller {
 		 if (v.id != null) {
 			 mensagem = "Editado com sucesso";
 		 }	 
+
 		v.save();
 		flash.success(mensagem);
 		listar(null);
@@ -41,6 +42,7 @@ public class Visitas extends Controller {
 		 render(visitas, termo);
 		 
 	 }
+
 	 
 	 public static void editar(long id) {
 		 Visita v = Visita.findById(id);

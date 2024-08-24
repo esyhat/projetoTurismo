@@ -22,7 +22,7 @@
 			<th>Email</th>
 			<th>senha</th>
 			<th>data</th>
-			<th>hora</th>
+			
 		</tr>
 	</thead>
 		#{list items:visitas, as:'v'}
@@ -30,11 +30,12 @@
 				<td>${v.nome}</td>
 				<td>${v.email}</td>
 				<td>${v.senha}</td>
-				<td>${v.data}</td>
-				<td>${v.hora}</td>
+			    <td>${v.data}</td>
+			
 	
 				<td>
 					<a href="@{Visitas.editar(v.id)}">Editar</a> | 
+					 <a href="@{Visitas.remover(v.id)}" onclick="return confirm('Deseja realmente excluir esta visita?')">Excluir</a>
 				</td>
 			</tr>
 		#{/list}
