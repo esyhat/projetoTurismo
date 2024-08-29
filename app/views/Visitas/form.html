@@ -1,32 +1,72 @@
-#{extends 'main.html' /}
-#{set title:'Form' /}
+#{extends 'main.html' /} 
+#{set title:'Form' /} 
+#{if p} 
+#{set
 
-#{if p}
-	#{set title:'Edição de Pessoa!!!' /}
-#{/if}
-#{else}
-	#{set title:'Cadastro de Pessoa!!!' /}
-#{/else}
+title:'Edição de Pessoa!!!' /} #{/if} #{else} #{set title:'Cadastro de
+Pessoa!!!' /} #{/else}
 
-<p>Preencha os dados das visitas</p>
+<form action="/Visitas/salvar">
 
-<form action="/Visitas/Salvar">
 
-<input type="hidden" name="v.id" value="${v?.id}"> 
+	<div class="container mt-5">
 
-	Nome:<input type="text" name="v.nome" value="${v?.nome}"> 
-	<br/>
-	Email:<input type="text" name="v.email" value="${v?.email}"> 
-	<br/>
-	Senha:<input type="password" name="v.senha" > 
-	<br/>
-	Data:<input type="Date" name="v.data" value="${v?.data}" > 
-	<br/>
-	
-<button>Enviar</button>
+		<h2 class="text-center>">Preencha os dados para agendar sua
+			visita!</h2>
 
+		<div class="p-5 bg-white rounded shadow">
+
+			<div class="mb-3">
+
+				<label for="nome" class="form-label text-dark">Nome: </label> <input
+					type="text" id="nome" name="v.nome" class="form-control"
+					value="${v?.nome}">
+			</div>
+
+			<div class="mb-3">
+				<label for="email" class="form-label text-dark">Email: </label> <input
+					type="email" id="email" name="v.email" class="form-control"
+					value="${v?.email}">
+			</div>
+
+			<div class="mb-3">
+				<div class="col-auto">
+					<label for="senha" class="form-label text-dark">Senha: </label>
+				</div>
+
+				<div class="mb-3">
+					<input type="password" id="senha" class="form-control"
+						aria-describedby="passwordHelpInline">
+				</div>
+				<div class="mb-3">
+					<span id="senha" class="form-text text-dark"> Deve ter
+						entre 8 e 20 caracteres. </span>
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<label for="data" class="form-label text-dark">Data:</label> <input
+					type="date" id="data" name="v.data" class="form-control"
+					value="${v?.data}">
+			</div>
+			
+			
+			<div class="mb-3">
+        
+       <label for="categoria">Categoria:</label>
+            <select name="v.categoria">
+               <option value="Armazenamento">Touros</option>
+               <option value="Hardware">Carnaubinha</option>
+               <option value="Computadores">Perobas</option>
+            </select>
+   </div>
+			
+			
+
+			<button type="submit" class="btn btn-primary w-100 ">Enviar</button>
 </form>
-<a href="@{Visitas.listar}">Voltar para listagem</a>
 
-
-
+<div class="text-center mt-4">
+	<a href="@{Visitas.listar}" class="btn btn-secondary">Voltar para
+		Listagem</a>
+</div>

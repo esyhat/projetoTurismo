@@ -1,53 +1,66 @@
-#{extends 'main.html' /}
-#{set title:'Listar' /}
+#{extends 'main.html' /} #{set title:'Listar' /}
 
 <form action="@{Visitas.listar}">
+	<br />
 	<div class="row">
 		<div class="col-6">
 			<input type="text" class="form-control" name="termo" value="${termo}" />
 		</div>
 		<div class="col-6">
-			<input type="submit" class="btn btn-primary" value="Pesquisar" />
+			<input type="submit" class="btn btn-primary btn btn-light "
+				value="Pesquisar" />
 		</div>
 	</div>
 </form>
+<br />
 
-<p>Visitas cadastradas</p>
+<h2 class="text-left mb-4">Reservas</h2>
 
 
 <table class="table table-hover">
 	<thead>
 		<tr>
-			<th>Nome</th>
-			<th>Email</th>
-			<th>senha</th>
-			<th>data</th>
+			<th>Nome:</th>
+			<th>Email:</th>
+			<th>data:</th>
+			<th>categoria:</th>
+			<th>ações</th>
 			
+
 		</tr>
 	</thead>
-		#{list items:visitas, as:'v'}
-			<tr>
-				<td>${v.nome}</td>
-				<td>${v.email}</td>
-				<td>${v.senha}</td>
-			    <td>${v.data}</td>
+	#{list items:visitas, as:'v'}
+
+	<tr>
+		<td>${v.nome}</td>
+		<td>${v.email}</td>
+		<td>${v.data}</td>
+		<td>${v.categoria}</td>
+		 
+		 
+
+
+		<td><a href="@{Visitas.editar(v.id)}"
+			class="btn btn-outline-warning "> Editar </a> 
 			
-	
-				<td>
-					<a href="@{Visitas.editar(v.id)}">Editar</a> | 
-					 <a href="@{Visitas.remover(v.id)}" onclick="return confirm('Deseja realmente excluir esta visita?')">Excluir</a>
-				</td>
-			</tr>
-		#{/list}
+			<a
+			href="@{Visitas.remover(v.id)}" class="btn btn-outline-danger"
+			onclick="return confirm('Deseja realmente excluir esta reserva?')">
+				Excluir </a>
+				
+		</td>
+
+
+
+
+	</tr>
+	#{/list}
 	<tbody>
-	
+
 	</tbody>
 </table>
 
 
 
-<a href="@{Visitas.form}">Nova Pessoa</a>
-
-
-
-
+<a href="@{Visitas.form}" class="btn btn-primary btn btn-light">Nova
+	Pessoa</a>
