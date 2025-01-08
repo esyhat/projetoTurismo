@@ -1,0 +1,134 @@
+#{extends 'main.html' /} #{set title:'' /}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Passeios</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+body {
+	font-family: 'Arial', sans-serif;
+	margin: 0;
+	padding: 0;
+	background-image: url("@{'public/images/pra.jpg'}");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.container {
+	text-align: center;
+	max-width: 800px;
+	padding: 20px;
+	margin-top: 140px;
+}
+
+.button-container {
+	margin: 30px 0;
+	text-align: center;
+}
+
+.btn {
+	background-color: #004080;
+	color: white;
+	border: none;
+	padding: 12px 25px;
+	font-size: 1.1rem;
+	border-radius: 25px;
+	cursor: pointer;
+	transition: background-color 0.3s, transform 0.3s;
+	text-decoration: none;
+}
+
+.btn:hover {
+	background-color: #003366;
+	transform: scale(1.05);
+}
+
+.card {
+	background-color: rgba(0, 0, 0, 0.5);
+	max-width: 18rem;
+	margin: 10px;
+}
+
+.card:hover {
+	background-color: #003366;
+	transform: scale(1.05);
+}
+
+.card-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+h2 {
+	text-align: center;
+	margin-bottom: 20px;
+}
+</style>
+</head>
+<body>
+	<h2>Aproveite os nossos passeios!</h2>
+
+	<main>
+		<div class="button-container">
+			<div class="dropdown">
+				<button class="btn btn-primary dropdown-toggle" type="button"
+					id="dropdownMenuButton1" data-bs-toggle="dropdown"
+					aria-expanded="false">Clique aqui para mais opções</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+					<li><button class="dropdown-item"
+							onclick="window.location='@{Principais.pinicial}'">Voltar
+							ao início</button></li>
+					<li><button class="dropdown-item"
+							onclick="window.location='@{Logins.form}'">Agende seu
+							passeio</button></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="card-container">
+			<div class="card h-100 mb-3">
+				<img src="@{'public/images/praia.webp'}" alt="Imagem 1">
+				<div class="card-body">
+					<h5 class="card-title text-warning text-center">Praias</h5>
+					<p class="card-text text-white">Descubra as praias encantadoras
+						de Touros, um verdadeiro paraíso no litoral norte do Rio Grande do
+						Norte. Diversão garantida!</p>
+				</div>
+			</div>
+
+			<div class="card h-100 mb-3">
+				<img src="@{'public/images/passeioBuggy.jpg'}" alt="Imagem 2">
+				<div class="card-body">
+					<h5 class="card-title text-warning text-center">Passeios de
+						Buggy</h5>
+					<p class="card-text text-white">Embarque em um passeio de buggy
+						pelas belas paisagens de Touros. Sinta a emoção enquanto explora
+						dunas, praias e rios em um percurso único, com a brisa do mar e a
+						vista deslumbrante. Aventura e diversão te esperam a cada curva!</p>
+				</div>
+			</div>
+
+			<div class="card h-100 mb-3">
+				<img src="@{'public/images/parracho.jpeg'}" alt="Imagem 3">
+				<div class="card-body">
+					<h5 class="card-title text-warning text-center">Parracho</h5>
+					<p class="card-text text-white">Embarque em um passeio de buggy
+						pelas belas paisagens de Touros. Sinta a emoção enquanto explora
+						dunas, praias e rios em um percurso único, com a brisa do mar e a
+						vista deslumbrante.</p>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

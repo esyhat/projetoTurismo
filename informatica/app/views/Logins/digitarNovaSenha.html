@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<title>Redefinir Senha</title>
+<style>
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh; /* Altura mínima para ocupar toda a tela */
+	background-color: #007bff; /* Cor de fundo azul */
+	color: white; /* Cor do texto para contraste */
+}
+
+.card {
+	width: 100%;
+	max-width: 1000px;
+	background-color: #ffffff; /* Cor de fundo da card */
+	color: #000; /* Cor do texto dentro da card */
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-12">
+				<!-- Mensagem de erro -->
+				#{if flash.error}
+				<div class="alert alert-danger">${flash.error}</div>
+				#{/if}
+
+				<div class="card">
+					<div class="card-header text-center">
+						<h4>Redefinir Senha</h4>
+					</div>
+					<div class="card-body">
+						<form action="@{Logins.salvarNovaSenha}" method="POST"
+							onsubmit="return validateForm()">
+							<input type="hidden" name="hash" value="${hash}">
+
+							<div class="form-group">
+								<label for="senha">Nova Senha</label> <input name="senha"
+									type="password" class="form-control" id="senha" required>
+							</div>
+
+							<div class="form-group">
+								<label for="senhaConfirmacao">Confirme a Nova Senha</label> <input
+									name="senhaConfirmacao" type="password" class="form-control"
+									id="senhaConfirmacao" required>
+							</div>
+
+							<button type="submit" class="btn btn-primary btn-block">Salvar</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function validateForm() {
+			const senha = document.getElementById('senha').value;
+			const confirmarSenha = document.getElementById('senhaConfirmacao').value;
+
+			if (senha !== confirmarSenha) {
+				alert('As senhas não coincidem.');
+				return false;
+			}
+
+			const hasUpperCase = /[A-Z]/.test(senha);
+			const hasLowerCase = /[a-z]/.test(senha);
+			const hasNumber = /\d/.test(senha);
+			const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(senha);
+			const isValidLength = senha.length >= 7; // Mínimo de 8 caracteres
+
+			if (!hasUpperCase || !hasLowerCase || !hasNumber || !hasSpecialChar
+					|| !isValidLength) {
+				alert('A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, letras minúsculas, números e caracteres especiais.');
+				return false;
+			}
+
+			return true;
+		}
+	</script>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

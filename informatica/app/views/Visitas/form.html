@@ -1,0 +1,137 @@
+#{extends 'main.html' /} #{set title:'Formulário de Visitas' /}
+
+<div class="dropdown">
+	<button class="btn btn-primary dropdown-toggle" type="button"
+		id="dropdownMenuButton1" data-bs-toggle="dropdown"
+		aria-expanded="false">Clique aqui para mais opções</button>
+	<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+		<li><button class="dropdown-item"
+				onclick="window.location='@{Principais.pinicial}'">Voltar
+				ao início</button></li>
+		<li><button class="dropdown-item"
+				onclick="window.location='@{Visitas.listar}'">Ir para a
+				listagem</button></li>
+		<li><button class="dropdown-item"
+				onclick="window.location='@{Logins.form}'">Ir para a pagina
+				de login</button></li>
+		<li><button class="dropdown-item"
+				onclick="window.location='@{Principais.passeio}'">Ir para
+				conhecer os passeios</button></li>
+	</ul>
+</div>
+
+<div class="container mx-auto p-2">
+	<div class="d-flex justify-content-center align-items-center vh-100">
+		<div class="shadow p-4 mb-5 bg-body-tertiary rounded"
+			style="width: 700px">
+			<div class="card">
+				<h2 class="text-center">Preencha os dados</h2>
+				<div class="card-body">
+					<form action="@{Visitas.salvar()}" method="post"
+						onsubmit="return validateForm()">
+						<input type="hidden" name="visita.id" value="${visita?.id}" />
+
+						<div class="container">
+							<div class="row">
+								<div class="col-md-8 mx-auto">
+									<label for="data">Data:</label> <input type="date"
+										class="form-control shadow" name="visita.data" id="data"
+										value="${visita?.data}" required />
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-8 mx-auto">
+									<label for="hora">Hora:</label> <input type="time"
+										class="form-control shadow" name="visita.hora"
+										value="${visita?.hora}" id="hora" required />
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-8 mx-auto">
+									<label for="numeroParticipantes">Número de
+										Participantes:</label> <input type="number"
+										class="form-control shadow" name="visita.numeroParticipantes"
+										value="${visita?.numeroParticipantes}"
+										id="numeroParticipantes" min="1" max="4" required
+										onchange="calculateTotal()" />
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-8 mx-auto">
+									<label class="form-label">Passeios:</label> <select
+										class="form-select shadow" name="visita.passeioIds" multiple
+										required onchange="calculateTotal()"> #{list
+										items:categorias, as:'c'}
+										<option value="${c.id}" data-preco="${c.valor}" #{if c in visita?.passeio}selected#{/if}>${c.passeio}
+											- R$ ${c.valor}</option> #{/list}
+									</select>
+								</div>
+							</div>
+
+							<div class="mt-3 d-grid gap-2 col-6 mx-auto">
+								<button type="submit" class="btn btn-primary">Enviar</button>
+							</div>
+						</div>
+					</form>
+
+					<div id="totalPrice" style="display: none;">0.00</div>
+					<input type="hidden" id="totalPriceInput" name="totalPrice"
+						value="0.00" />
+
+					<script>
+                        function validateForm() {
+                            const dataInput = document.getElementById('data');
+                            const horaInput = document.getElementById('hora');
+                            const numeroParticipantesInput = document.getElementById('numeroParticipantes');
+
+                            const selectedDate = new Date(dataInput.value);
+                            const currentDate = new Date();
+                            const twoDaysFromNow = new Date();
+                            twoDaysFromNow.setDate(currentDate.getDate() + 2);
+
+                           
+                            if (selectedDate < twoDaysFromNow) {
+                                alert('A data deve ser pelo menos dois dias antes da viagem.');
+                                return false; 
+                            }
+
+                         
+                            const [selectedHour, selectedMinute] = horaInput.value.split(':').map(Number);
+                            if (selectedHour < 8 || (selectedHour === 17 && selectedMinute > 0) || selectedHour > 17) {
+                                alert('A hora do passeio deve ser entre 8:00 e 17:00.');
+                                return false; 
+                            }
+
+                            
+                            const numeroParticipantes = parseInt(numeroParticipantesInput.value);
+                            if (numeroParticipantes < 1 || numeroParticipantes > 4) {
+                                alert('O número de participantes deve ser entre 1 e 4.');
+                                return false;
+                            }
+
+                            return true;
+                        }
+
+                        function calculateTotal() {
+                            const numeroParticipantes = parseInt(document.getElementById('numeroParticipantes').value);
+                            const selectedOptions = document.querySelectorAll('select[name="visita.passeioIds"] option:checked');
+
+                            let total = 0;
+
+                            selectedOptions.forEach(option => {
+                                const preco = parseFloat(option.getAttribute('data-preco'));
+                                total += preco * numeroParticipantes; // Multiplicando pelo número de participantes
+                            });
+
+                            document.getElementById('totalPrice').innerText = total.toFixed(2); // Atualizando o total exibido
+                            document.getElementById('totalPriceInput').value = total.toFixed(2); // Atualizando o valor total no campo oculto
+                        }
+                    </script>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
